@@ -3,8 +3,14 @@ import math
 import numpy as np
 from scipy import stats  # Importing scipy for advanced statistical functions
 from sympy import symbols, solve, sympify, diff, integrate
-from typing import List, Tuple
+from typing import List
 from pydantic import Field
+import logging
+
+# Configure logging to reduce verbosity
+logging.getLogger().setLevel(logging.WARNING)
+logging.getLogger("mcp").setLevel(logging.WARNING)
+logging.getLogger("fastmcp").setLevel(logging.WARNING)
 
 # Create MCP Server
 app = FastMCP(
@@ -346,22 +352,26 @@ def correlation_coefficient(data_x: List[float], data_y: List[float]) -> dict:
 
 
 @app.tool()
-def linear_regression(data: List[Tuple[float, float]]) -> dict:
+def linear_regression(data: List[List[float]]) -> dict:
     """
     Performs linear regression on a set of points and returns the slope and intercept.
 
     Args:
-        data: A list of tuples, where each tuple contains (x, y) coordinates.
+        data: A list of lists, where each inner list contains [x, y] coordinates.
+              Example: [[1, 2], [2, 3], [3, 5]]
 
     Returns:
         On success: {"slope": <slope value>, "intercept": <intercept value>}
         On error: {"error": <error message>}
 
     Examples:
-        >>> linear_regression([(1, 2), (2, 3), (3, 5)])
+        >>> linear_regression([[1, 2], [2, 3], [3, 5]])
         {'slope': 1.5, 'intercept': 0.3333333333333335}
     """
     try:
+        if not data or len(data[0]) != 2:
+            return {"error": "Data must be a list of [x, y] coordinate pairs"}
+        
         x = np.array([point[0] for point in data])
         y = np.array([point[1] for point in data])
         slope, intercept, _, _, _ = stats.linregress(x, y)
@@ -470,4 +480,11 @@ def matrix_transpose(matrix: List[List[float]]) -> dict:
 
 
 if __name__ == "__main__":
+    # Additional logging configuration for the runtime
+    import sys
+    logging.basicConfig(
+        level=logging.WARNING,
+        format='%(levelname)s: %(message)s',
+        stream=sys.stderr
+    )
     app.run()

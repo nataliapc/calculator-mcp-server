@@ -2,5 +2,4 @@ fastmcp>=0.4.1
 numpy>=2.2.0
 scipy>=1.15.0
 sympy>=1.13.0
-pytest>=8.3.0
 pydantic>=2.10.0

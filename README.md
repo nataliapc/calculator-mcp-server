@@ -2,6 +2,11 @@
 
 This is a Model Context Protocol (MCP) server that provides Claude with advanced mathematical calculation capabilities, including symbolic math, statistical analysis, and matrix operations.
 
+This repo is a fork from:  
+https://github.com/huhabla/calculator-mcp-server  
+And dockerized by @nataliapc:  
+https://hub.docker.com/repository/docker/nataliapc/mcp-calculator-server  
+
 ## Features
 
 The Mathematical Calculator MCP Server provides the following tools:
