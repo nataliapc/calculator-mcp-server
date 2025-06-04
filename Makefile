@@ -11,7 +11,7 @@ build:
 	docker image rm $(DOCKERIMAGE) ;
 
 bash:
-	docker run -it --rm -p 8080:8080 $(DOCKERIMAGE) bash ;
+	docker run -it --rm -p 8080:8080 $(FULLIMAGENAME) bash ;
 
 push:
 	docker push $(FULLIMAGENAME):$(VERSION) ;

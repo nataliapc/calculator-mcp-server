@@ -1,6 +1,6 @@
 # Mathematical Calculator MCP Server
 
-This is a Model Context Protocol (MCP) server that provides Claude with advanced mathematical calculation capabilities, including symbolic math, statistical analysis, and matrix operations.
+This is a Model Context Protocol (MCP) server that provides your model with advanced mathematical calculation capabilities, including symbolic math, statistical analysis, and matrix operations.
 
 This repo is a fork from:  
 https://github.com/huhabla/calculator-mcp-server  
@@ -33,7 +33,7 @@ The Mathematical Calculator MCP Server provides the following tools:
 
 - Python 3.10+ (recommended: Python 3.11+)
 - [uv](https://github.com/astral-sh/uv) (recommended) or pip
-- Claude Desktop app (to use the MCP server with Claude)
+- MCP capable IDE app
 
 ### Installation Steps
 
@@ -61,27 +61,24 @@ The Mathematical Calculator MCP Server provides the following tools:
    bash run_doctests.sh
    ```
 
-## Integration with Claude Desktop
+## Integration with VSCode
 
-To use this MCP server with Claude Desktop:
+To use this MCP server with VSCode:
 
-1. Make sure you have uv installed ([Installation Guide](https://github.com/astral-sh/uv))
-
-2. Install the MCP server in Claude Desktop:
-   ```bash
-   fastmcp install calculator_server.py
-   ```
-
-   Or with a custom name:
-   ```bash
-   fastmcp install calculator_server.py --name "Math Calculator"
-   ```
-
-3. Once installed, Claude will automatically have access to all the mathematical tools and functions.
+```
+"mcp": {
+    "servers": {
+        "mcp-calculator-server": {
+            "command": "docker",
+            "args": [ "run", "--rm", "-i", "nataliapc/mcp-calculator-server" ]
+        },
+    }
+}
+```
 
 ## Usage Examples
 
-After integrating with Claude Desktop, you can ask Claude to perform various mathematical operations. Here are some examples:
+After integrating, you can ask to perform various mathematical operations. Here are some examples:
 
 ### Basic Calculations
 ```
@@ -126,18 +123,9 @@ and
 [11, 12]
 ```
 
-## Development
-
-### Testing
-
-Run the comprehensive doctest suite:
-```bash
-bash run_doctests.sh
-```
-
 ### Interactive Development Mode
 
-For development and debugging, you can use the FastMCP development mode:
+For development and debugging, you can use:
 ```bash
 fastmcp dev calculator_server.py
 ```
@@ -150,6 +138,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgements
 
+- [huhabla](https://github.com/huhabla) for the original MCP code
 - [FastMCP](https://github.com/jlowin/fastmcp) for the Pythonic MCP server framework
 - [SymPy](https://sympy.org/) for symbolic mathematics
 - [NumPy](https://numpy.org/) and [SciPy](https://scipy.org/) for numerical and statistical computations
