@@ -16,6 +16,8 @@ RUN apt-get update && \
         bash \
         && rm -rf /var/lib/apt/lists/*
 
+COPY LICENSE .
+
 # Copy requirements first for better Docker layer caching
 COPY requirements.txt .
 # Copy application files
